@@ -1,1 +1,9 @@
+{
+  "build": {
+    "env": {
+      "REACT_APP_API_URL": "@api_url"
+    },
+    "command": "npm run build" // or "pnpm run build" based on your package manager
+  }
+}
 
