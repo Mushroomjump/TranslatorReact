@@ -3,38 +3,55 @@ import OriginalText from './OriginalText';
 import TranslationForm from './TranslationForm';
 
 const App = () => {
-  const [originalText, setOriginalText] = useState('');
+  const [item, setItem] = useState(null);
 
+  // Fetch the current item on component mount
   useEffect(() => {
-    // Fetch the original text
-    const fetchOriginalText = async () => {
-      const response = await fetch('/api/originals');
-      const data = await response.json();
-      setOriginalText(data.text); // Adjust according to your API response
-    };
-
-    fetchOriginalText();
+    fetchCurrentItem();
   }, []);
 
+  const fetchCurrentItem = async () => {
+    const response = await fetch('/api/items/current');
+    const data = await response.json();
+    setItem(data);
+  };
+
+  const fetchNextItem = async () => {
+    const response = await fetch(`/api/items/next/${item._id}`);
+    const data = await response.json();
+    setItem(data);
+  };
+
+  const fetchPrevItem = async () => {
+    const response = await fetch(`/api/items/prev/${item._id}`);
+    const data = await response.json();
+    setItem(data);
+  };
+
   const handleTranslationSubmit = async (translation) => {
-    // Submit translation
-    await fetch('/api/translations', {
+    await fetch('/api/items/translate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ translation }),
+      body: JSON.stringify({ originalId: item._id, translation }),
     });
-    // Optionally, fetch the next original text here
+    // Fetch the next item after submission
+    fetchNextItem();
   };
 
   return (
     <div>
-      <OriginalText text={originalText} />
-      <TranslationForm onSubmit={handleTranslationSubmit} />
+      {item && (
+        <>
+          <OriginalText text={item.originalText} />
+          <TranslationForm onSubmit={handleTranslationSubmit} />
+          <button onClick={fetchPrevItem}>Previous</button>
+          <button onClick={fetchNextItem}>Next</button>
+        </>
+      )}
     </div>
   );
 };
 
 export default App;
-
