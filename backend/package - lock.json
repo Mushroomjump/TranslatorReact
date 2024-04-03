@@ -1,1 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "lockfileVersion": 1,
+  "requires": true,
+  "dependencies": {
+    "accepts": {
+      "version": "1.3.7",
+      "resolved": "https://registry.npmjs.org/accepts/-/accepts-1.3.7.tgz",
+      "integrity": "sha512-llsQiNpWU5LWtQN5NPqT6m/8ArHz9sDiKUZoY3MlFcplv4zQaHxhIwPp5k8RFHbWjRYhIY2rlpJUeF1kS/zR/A==",
+      "requires": {
+        "mime-types": "~2.1.24",
+        "negotiator": "0.6.2"
+      }
+    },
+    // ... many more dependencies listed here
+  }
+}
 
