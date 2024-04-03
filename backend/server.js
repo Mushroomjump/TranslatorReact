@@ -10,8 +10,8 @@ app.use(express.json());
 MongoClient.connect(process.env.MONGODB_URI, { useUnifiedTopology: true })
   .then(client => {
     console.log('Connected to Database');
-    const db = client.db('databaseName');
-    const collection = db.collection('collectionName');
+    const db = client.db('fintech');
+    const collection = db.collection('rawData');
 
     // Define routes here
     app.get('/', (req, res) => {
